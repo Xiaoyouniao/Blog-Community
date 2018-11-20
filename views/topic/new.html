@@ -1,0 +1,54 @@
+{{extend '../_layouts/home.html'}} {{block 'title'}}{{'多人社区'}}{{/block}} {{block 'body'}}
+<section class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <form id="topic_form">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">选择板块</label>
+                    <select class="form-control" name="model">
+                      <option value=1>分享</option>
+                      <option value=2>问答</option>
+                      <option value=3>招聘</option>
+                      <option value=4>调试</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">标题</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="标题">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">内容</label>
+                    <textarea class="form-control" rows="3" name="content"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">发表</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('#topic_form').on('submit', function(e) {
+        e.preventDefault()
+
+        var formData = $(this).serialize()
+
+        $.ajax({
+            url: '/topics/new',
+            type: 'post',
+            data: formData,
+            dataType: 'json',
+            success: function(data) {
+
+                var err_code = data.err_code
+                if (err_code === 0) {
+                    // window.alert('注册成功！')
+                    // 服务端重定向针对异步请求无效
+                    window.location.href = '/'
+                } else if (err_code === 2) {
+                    window.alert('数据库忙，请稍后重试！')
+                }
+            }
+        })
+    })
+</script>
+{{/block}}

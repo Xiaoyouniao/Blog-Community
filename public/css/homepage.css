@@ -1,0 +1,51 @@
+.leftSideBar .name {
+    font-size: 30px;
+    font-family: 'Microsoft Yahei';
+}
+
+.leftSideBar .profile {
+    font-size: 26px;
+    color: #ccc;
+}
+
+.leftSideBar .vcard-details {
+    list-style: none;
+    padding: 0;
+}
+
+.leftSideBar .vcard-details li {
+    padding: 5px 0;
+    white-space: nowrap;
+}
+
+.tab-content ul {
+    list-style: none;
+}
+
+.tab-content ul li {
+    float: left;
+    width: 200px;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #ccc;
+    margin: 10px;
+    padding: 10px 20px;
+}
+
+.tab-content ul li h4 {
+    line-height: 40px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+}
+
+#topics ul li {
+    width: 90%;
+}
+
+.overview-part {
+    width: 100%;
+}

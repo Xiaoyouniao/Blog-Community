@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{block 'title'}}默认标题{{/block}}</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css"> {{block 'head'}}{{/block}}
+    <style>
+        @media screen and (max-width: 768px) {
+            footer {
+                float: left;
+            }
+        }
+        
+        @media screen and (min-width: 768px) {
+            footer {
+                position: absolute;
+                bottom: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+    {{include '../_partials/header.html'}} {{block 'body'}}{{/block}} {{include '../_partials/footer.html'}} {{block 'script'}}{{/block}}
+</body>
+
+</html>

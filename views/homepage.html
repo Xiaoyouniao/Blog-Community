@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>多人技术社区</title>
+
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/css/homepage.css">
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules//bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        $(function() {
+            $('#myTabs a').click(function(e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+        })
+    </script>
+
+</head>
+
+<body class="logged-in env-production page-profile mine">
+
+
+    {{include './_partials/header.html'}}
+
+    <section class="container">
+
+        <div class="row">
+            <div class="col-xs-3 leftSideBar">
+                <div>
+                    <a class="avatar" href="/account"><img width="100%" class="" src="/public/img/avatar-default.png" /></a>
+                    <h1 class="name">{{ user.nickname }}</h1>
+                    <p class="profile">个人介绍</p>
+                    <a href="/settings/profile" class="btn btn-primary btn-block">Edit Profiles</a>
+                    <ul class="vcard-details">
+                        <li class=""><svg class="octicon octicon-mail" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M0 4v8c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H1c-.55 0-1 .45-1 1zm13 0L7 9 1 4h12zM1 5.5l4 3-4 3v-6zM2 12l3.5-3L7 10.5 8.5 9l3.5 3H2zm11-.5l-4-3 4-3v6z"/></svg>
+                            <a class="u-email" href="mailto:&#x68;&#x6d;&#x68;&#x68;&#x65;&#x6c;&#x6c;&#x6f;&#x40;&#x31;&#x36;&#x33;&#x2e;&#x63;&#x6f;&#x6d;">&#x68;&#x6d;&#x68;&#x68;&#x65;&#x6c;&#x6c;&#x6f;&#x40;&#x31;&#x36;&#x33;&#x2e;&#x63;&#x6f;&#x6d;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-xs-9">
+                <div class="tabbar">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" id="mytabs">
+                        <li role="presentation" class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+                        <li role="presentation"><a href="#topics" data-toggle="tab">Topics</a></li>
+                        <li role="presentation"><a href="#followers" data-toggle="tab">Followers</a></li>
+                        <li role="presentation"><a href="#following" data-toggle="tab">Following</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="overview">
+                            <div class="overview-part container">
+                                <ul class="meida-list">
+                                    <li>
+                                        <h4 class="media-heading">Email</h4>
+                                        {{ user.email }}
+                                    </li>
+                                    <li>
+                                        <h4 class="media-heading">Birthday</h4>
+                                        {{ if user.birthday }}
+                                        <span>{{ user.birthtay }}</span> {{ else }}
+                                        <span>无</span> {{ /if }}
+                                    </li>
+                                    <li>
+                                        <h4 class="media-heading">Profile</h4>
+                                        {{ if user.profile }}
+                                        <span>{{ user.profile }}</span> {{ else }}
+                                        <span>无</span> {{ /if }}
+                                    </li>
+                                    <li>
+                                        <h4 class="media-heading">Gender</h4>
+                                        {{ if user.gender ==0 }}
+                                        <span>女</span> {{ else if user.gender ==1 }}
+                                        <span>男</span> {{ else }}
+                                        <span>保密</span> {{ /if }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="topics">
+                            <ul>{{ each topic }}
+                                <li class="media">
+                                    <div class="media-left">
+                                        <a href="javascript:;">
+                                            <img width="40" height="40" class="media-object" src="../public/img/avatar-default.png" alt="...">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="/topics/edit?id={{ $value._id }}">{{ $value.title }}</a></h4>
+
+                                        <p>
+                                            创建时间：{{$value.created_time}}• 来自模块 {{if $value.model==1}} <span>分享</span> {{else if $value.model==2}} <span>问答</span> {{else if $value.model==3}} <span>招聘</span> {{else}} <span>调试</span> {{/if}}
+                                        </p>
+                                    </div>
+                                </li>
+                                {{ /each }}
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="followers">...</div>
+                        <div role="tabpanel" class="tab-pane" id="following">...</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </section>
+
+
+
+    {{include './_partials/footer.html'}}
+
+
+
+</body>
+
+</html>

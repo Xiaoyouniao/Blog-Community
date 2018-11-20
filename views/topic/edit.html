@@ -1,0 +1,94 @@
+{{extend '../_layouts/home.html'}} {{block 'title'}}{{'多人社区'}}{{/block}} {{block 'head'}}
+<link rel="stylesheet" href="/public/css/markdown-github.css">
+<style>
+    body {
+        background-color: #eee;
+    }
+    
+    .panel .panel-heading .action i {
+        margin-right: 10px;
+    }
+    
+    .content {
+        padding: 10px;
+        font-size: 18px;
+        line-height: 20px;
+        text-indent: 36px;
+        min-height: 150px;
+        color: #666;
+    }
+</style>
+{{/block}} {{block 'body'}}
+<section class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <form id="edit_form">
+                <div class="form-group">
+                    <label for="">标题</label>
+                    <input type="text" class="form-control" value="{{ topic.title }}" name="title" placeholder="Email" autofocus>
+                </div>
+                <div class="form-group">
+                    <p for="" style="font-weight: bold">正文<a class="pull-right" href="/topic/remove?id={{ topic.id }}">删除</a></p>
+
+                    <textarea cols="30" rows="10" name="content" style="resize:none; width:100%; ">{{ topic.content }}</textarea>
+
+                </div>
+                <p>作者：{{ topic.author }} <span class="pull-right">创建于 {{ topic.created_time }}</span>
+                    <div class="form-group inline">
+                        <label for="exampleInputEmail1">来自：</label>
+                        <select class="form-control" name="model">
+                            {{ if topic.model==1 }}
+                            <option value=1 selected>分享</option>
+                            <option value=2>问答</option>
+                            <option value=3>招聘</option>
+                            <option value=4>调试</option>
+                            {{ else if topic.model==2 }}
+                            <option value=1>分享</option>
+                            <option value=2 selected>问答</option>
+                            <option value=3>招聘</option>
+                            <option value=4>调试</option>
+                            {{ else if topic.model==3 }}
+                            <option value=1>分享</option>
+                            <option value=2>问答</option>
+                            <option value=3 selected>招聘</option>
+                            <option value=4>调试</option>
+                            {{ else if topic.model==4 }}
+                            <option value=1>分享</option>
+                            <option value=2>问答</option>
+                            <option value=3>招聘</option>
+                            <option value=4 selected>调试</option>
+                            {{ /if }}
+                        </select>
+                    </div>
+
+                </p>
+                <button type="submit" class="btn btn-primary">提交</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('#edit_form').on('submit', function(e) {
+        e.preventDefault()
+
+        var formData = $(this).serialize()
+
+        $.ajax({
+            url: '/topics/edit',
+            type: 'post',
+            data: formData,
+            dataType: 'json',
+            success: function(data) {
+                var err_code = data.err_code
+                if (err_code === 0) {
+                    // 服务端重定向针对异步请求无效
+                    window.location.href = '/home'
+                } else if (err_code === 2) {
+                    window.alert('数据库忙，请稍后重试！')
+                }
+            }
+        })
+    })
+</script>
+{{/block}}
